@@ -1,21 +1,22 @@
 import { describe, it, expect } from 'vitest'
 import { validate, validateUniqueCapacity } from '../validator'
-import type { TableDefinition } from '@/types/schema'
+import type { TableDefinition, ColumnDefinition } from '@/types/schema'
 
 function makeTable(overrides: Partial<TableDefinition> = {}): TableDefinition {
   return {
     id: 't1',
     name: 'users',
     columns: [],
+    rowCount: 10,
     ...overrides,
   }
 }
 
-function makeCol(id: string, name: string, overrides = {}) {
+function makeCol(id: string, name: string, overrides: Partial<ColumnDefinition> = {}): ColumnDefinition {
   return {
     id,
     name,
-    type: 'VARCHAR' as const,
+    type: 'VARCHAR',
     nullable: false,
     nullRate: 0,
     isPrimaryKey: false,
@@ -31,7 +32,8 @@ function makeCol(id: string, name: string, overrides = {}) {
     usePrefix: false,
     prefix: '',
     prefixDigits: 5,
-    fakerCategory: 'auto' as const,
+    useSequential: false,
+    fakerCategory: 'auto',
     dateRange: { from: '2020-01-01', to: '2025-01-01' },
     ...overrides,
   }

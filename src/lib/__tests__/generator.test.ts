@@ -46,8 +46,8 @@ describe('generateRows', () => {
   it('プレフィックス連番を正しく生成する', () => {
     const tables = [makeTable('t1', 'users', [
       makeCol('c1', 'id', { isPrimaryKey: true, usePrefix: true, prefix: 'USR', prefixDigits: 5 }),
-    ])]
-    const result = generateRows(tables, 3)
+    ], 3)]
+    const result = generateRows(tables)
     const rows = result[0].rows
     expect(rows[0]['id']).toBe('USR00001')
     expect(rows[1]['id']).toBe('USR00002')
@@ -67,8 +67,8 @@ describe('generateRows', () => {
     const tables = [makeTable('t1', 'users', [
       makeCol('c1', 'id', { isPrimaryKey: true, type: 'INT' }),
       makeCol('c2', 'email', { isUnique: true, fakerCategory: 'internet.email' }),
-    ])]
-    const result = generateRows(tables, 50)
+    ], 50)]
+    const result = generateRows(tables)
     const emails = result[0].rows.map((r) => r['email'])
     const unique = new Set(emails)
     expect(unique.size).toBe(emails.length)
@@ -79,8 +79,8 @@ describe('generateRows', () => {
     const tables = [makeTable('t1', 'users', [
       makeCol('c1', 'id', { isPrimaryKey: true, type: 'INT' }),
       makeCol('c2', 'status', { type: 'ENUM', enumValues }),
-    ])]
-    const result = generateRows(tables, 20)
+    ], 20)]
+    const result = generateRows(tables)
     for (const row of result[0].rows) {
       expect(enumValues).toContain(row['status'])
     }
@@ -104,7 +104,7 @@ describe('generateRows', () => {
       makeCol('c2', 'id', { isPrimaryKey: true, type: 'INT' }),
       makeCol('c3', 'user_id', { isForeignKey: true, foreignKeyRef: { tableId: 't1', columnId: 'c1' }, type: 'INT' }),
     ])
-    const result = generateRows([parent, child], 10)
+    const result = generateRows([parent, child])
     const parentIds = result.find((r) => r.tableId === 't1')!.rows.map((r) => r['id'])
     const childUserIds = result.find((r) => r.tableId === 't2')!.rows.map((r) => r['user_id'])
     for (const uid of childUserIds) {

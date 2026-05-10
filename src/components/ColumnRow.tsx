@@ -23,7 +23,6 @@ interface Props {
 
 export function ColumnRow({ col, tables, tableId, onChange, onRemove }: Props) {
   const isIntType = ['TINYINT', 'INT', 'BIGINT'].includes(col.type)
-  const isNumeric = ['TINYINT', 'INT', 'BIGINT', 'DECIMAL', 'FLOAT'].includes(col.type)
   const isDate = ['DATE', 'DATETIME', 'TIMESTAMP'].includes(col.type)
   const isVarchar = col.type === 'VARCHAR'
   const isEnum = col.type === 'ENUM'

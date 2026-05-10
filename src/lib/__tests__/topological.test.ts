@@ -26,10 +26,12 @@ function makeTable(id: string, name: string, fkRefs: { tableId: string }[] = [])
         usePrefix: false,
         prefix: '',
         prefixDigits: 5,
+        useSequential: false,
         fakerCategory: 'auto' as const,
         dateRange: { from: '2020-01-01', to: '2025-01-01' },
       })),
     ],
+    rowCount: 10,
   }
 }
 

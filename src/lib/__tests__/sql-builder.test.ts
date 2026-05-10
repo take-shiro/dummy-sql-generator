@@ -40,7 +40,7 @@ const baseTable = makeTable('t1', 'users', [
 
 describe('buildSql', () => {
   it('INSERT文を生成する', () => {
-    const { sql, warnings } = buildSql([baseTable], 3, false)
+    const { sql, warnings } = buildSql([baseTable], false)
     expect(warnings).toHaveLength(0)
     expect(sql).toContain('INSERT INTO `users`')
     expect(sql).toContain('`id`')

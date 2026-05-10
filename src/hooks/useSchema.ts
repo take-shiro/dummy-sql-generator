@@ -49,9 +49,9 @@ function loadFromStorage(): TableDefinition[] {
     if (!raw) return [createDefaultTable()]
     const parsed = JSON.parse(raw) as TableDefinition[]
     return parsed.map((t) => ({
-      rowCount: 100,
       ...t,
-      columns: t.columns.map((c) => ({ useSequential: false, ...c })),
+      rowCount: t.rowCount ?? 100,
+      columns: t.columns.map((c) => ({ ...c, useSequential: c.useSequential ?? false })),
     }))
   } catch {
     return [createDefaultTable()]
